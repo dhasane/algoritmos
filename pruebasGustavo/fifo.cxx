@@ -7,19 +7,24 @@
 #include <unistd.h>
 using namespace std;
 
+void send(char* pipe,char*  msg){
+  int pipeM = open(pipe, O_WRONLY);
+  write(pipeM,msg, strlen(msg)+1);
+  close(pipeM);
+}
+
+char *get(char* pipe,char* msg){
+  int pipeT = open(pipe, O_RDONLY);
+  read(pipeT,msg,35);
+  close(pipeT);
+  return msg;
+}
 
 int main(){
-  int pipeT,pipeM;
-  char *msg="mensaje",*tablero;
-  cout<<"...";
+  char *pipeT=(char*)"pipefifoT",*pipeM=(char*)"pipefifoM";
+  char msg[35];
   while(true){
-    pipeT = open("pipefifoT", O_RDONLY);
-    pipeM = open("pipefifoM", O_WRONLY);
-    read(pipeT,tablero,20);
-    cout<<tablero;
-    write(pipeM,msg, strlen(msg)+1);
-    close(pipeM);
-    close(pipeT);
-
+    get(pipeT,msg);
+    send(pipeM,"a,0;c,2");
   }
 }
