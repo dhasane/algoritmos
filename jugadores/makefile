@@ -1,6 +1,5 @@
 cpp:
-	gcc ej1.c -o escr
-#	gcc ej2.c -o lect
+	gcc jugador.c -o escr
 
 clean:
 	rm escr #lect

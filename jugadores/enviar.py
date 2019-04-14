@@ -73,6 +73,12 @@ def enviarTablero(tablero,J,nomPipe):
     
     send(nomPipe,env)
 
+    pipeRec = nomPipe+"-x"
+
+    imprimir("esperando por : ",pipeRec)
+    ret = reciv(pipeRec)
+    print ret
+
 def imprimir(*args):
     imp = ''
     
@@ -81,13 +87,21 @@ def imprimir(*args):
     #print( imp )        #py3
     print imp          #py2
 
+nomPipe = "hola"
+
+"""
+os.mkfifo(nomPipe)
+os.mkfifo(nomPipe+"-x")
+os.mkfifo(nomPipe+"-o")
+#"""
+
 
 tablero=crearTablero(8)
 
 imprimir("tablero inicial :")
 imprimirTablero(tablero)
 
-nomPipe = "hola"
+
 #os.mkfifo(nomPipe)
 
 enviarTablero(tablero,J1['pieces'],nomPipe)
