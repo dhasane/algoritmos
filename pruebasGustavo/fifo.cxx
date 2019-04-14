@@ -141,7 +141,7 @@ void sendMove(char* pipe,vector<int*> M){
 void init(){
   int **dir1=new int*[2];dir1[0]=new int[2];dir1[1]=new int[2];//{{1,1},{1,-1}};
   int **dir2=new int*[2];dir2[0]=new int[2];dir2[1]=new int[2];//{{-1,1},{-1,-1}};
-  int **DIR=new int*[4];DIR[0]=new int[2];DIR[1]=new int[2];DIR[0]=new int[2];DIR[1]=new int[2];//{{1,1},{1,-1},{-1,1},{-1,-1}};
+  int **DIR=new int*[4];DIR[0]=new int[2];DIR[1]=new int[2];DIR[2]=new int[2];DIR[3]=new int[2];//{{1,1},{1,-1},{-1,1},{-1,-1}};
   dir1[0][0]=1;dir1[0][1]=1;dir1[1][0]=1;dir1[1][1]=-1;
   dir2[0][0]=-1;dir2[0][1]=1;dir2[1][0]=-1;dir2[1][1]=-1;
   DIR[0][0]=-1;DIR[0][1]=1;DIR[1][0]=-1;DIR[1][1]=-1;     DIR[2][0]=1;DIR[2][1]=1;DIR[3][0]=1;DIR[3][1]=-1;
