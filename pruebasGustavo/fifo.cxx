@@ -24,6 +24,7 @@ int * makepos(int x, int y){
   int* pos=new int[2];
   pos[0]=x;
   pos[1]=y;
+  return pos;
 }
 
 char **makeMove(char **tablero,vector<int*> m,jugador J){
