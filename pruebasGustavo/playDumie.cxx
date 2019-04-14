@@ -36,7 +36,7 @@ char *get(char* pipe,char* msg){
 char getTablero(char* pipe,char **tablero){
   char msg[35];
   get(pipe,msg);
-  int pos=2;
+  int pos=0;
   for(int i=0;i<8;i++){
     for(int j=0;j<8;j++){
       if((i+j)%2==0){
@@ -47,7 +47,7 @@ char getTablero(char* pipe,char **tablero){
       }
     }
   }
-  return msg[0];
+  return msg[33];
 }
 
 void sendMove(char* pipe,vector<int*> M){
