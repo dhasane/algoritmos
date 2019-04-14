@@ -61,7 +61,7 @@ def crearJugador(arg):#arg es el nombre del archivo que describe el jugador//ret
 
     def playerPipe(E,J):
         pipeT=open(pipename+'T','w')
-        pipeT.write(J+':'+tableToString(E))
+        pipeT.write(tableToString(E)+':'+J)
         pipeT.close()
         pipeM=open(pipename+'M','r')
         l=pipeM.readline()
