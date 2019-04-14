@@ -1,24 +1,12 @@
 
-
-#include <stdio.h> 
-#include <string.h> 
-#include <fcntl.h> 
-#include <sys/stat.h> 
-#include <sys/types.h> 
-#include <unistd.h> 
-
 // general ---
-# include <stdio.h>
+# include <stdio.h> 
+# include <string.h>  
 # include <stdlib.h>
-# include <string.h>
-# include <stdbool.h>
 
 // pipes -----
 # include <fcntl.h>
-# include <sys/stat.h>
 # include <unistd.h>
-# include <signal.h>
-
 
 // abre el pipe "pipe", envia un mensaje "txt" a traves de este y cierra el pipe
 // sin retorno
