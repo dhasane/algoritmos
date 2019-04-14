@@ -56,21 +56,20 @@ def crearJugador(arg):#arg es el nombre del archivo que describe el jugador//ret
         pipename="pipe"+arg
     os.mkfifo(pipename+'T')
     os.mkfifo(pipename+'M')
-    print command
     thr = playThread(command)
     thr.start()
 
     def playerPipe(E,J):
         pipeT=open(pipename+'T','w')
-        pipeT.write(tableToString(E))
+        pipeT.write(tableToString(E)+':'+J)
         pipeT.close()
         pipeM=open(pipename+'M','r')
-        return stringToMove(pipeM.readline())
+        l=pipeM.readline()
+        return stringToMove(l)
     return playerPipe,thr
 
 def stringToMove(str):
     str=str[:len(str)-1]
-    print str
     dic={'a':'0','b':'1','c':'2','d':'3','e':'4','f':'5','g':'6','h':'7'}
     str_=""
     for i in range(len(str)):
@@ -81,7 +80,6 @@ def stringToMove(str):
     pos=str_.split(';')
     move=[]
     for p in pos:
-        print p
         move+=[eval('('+p+')')]
     return move
 
@@ -210,6 +208,7 @@ def contarJugadores(tablero):
 # en caso de superar MaxTime, se retorna None, de lo contrario retorna el movimiento seleccionado
 def race(f,MaxTime,*args):
     try:
+        print f.__name__
         t1=time.time()
         R=f(*args)
         t2=time.time() - t1
@@ -218,6 +217,7 @@ def race(f,MaxTime,*args):
         return None, t2
     except:
         print "error en la ejecucion del jugador"
+        traceback.print_exc()
         return None, 0
 '''
 T=[
@@ -262,20 +262,15 @@ except Exception, err:
 
 memoria = 20    # cantidad de tableros guardados para revisar ciclos
 Tv = []         # tableros viejos
-
 ganador = 0     # | 0 : empate | 1 : jugador 1 | 2 : jugador 2 |
-
 tablero=crearTablero(8)
 print "tablero inicial :"
 imprimirTablero(tablero)
 fin=False
 k=0             # contador de turnos en la partida
 M  = []         # lista de movimientos posibles
-
 tiempo = 0
-
 tiempoTotal = time.time()
-
 while not fin:
 
     # jugadas posibles jugador 1
@@ -285,7 +280,7 @@ while not fin:
 
     if not fin:
         # turno jugador 1
-        m, tiempo = race(P1,MaxTime,tablero,M,'X')
+        m, tiempo = race(P1,MaxTime,tablero,'X')
         if m in M:
             tablero=makeMove(tablero,m,J1)
 
@@ -324,7 +319,7 @@ while not fin:
 
         if not fin:
             # turno jugador 2
-            m, tiempo = race(P2,MaxTime,tablero,M,'O')
+            m, tiempo = race(P2,MaxTime,tablero,'O')
             if m in M:
                 tablero=makeMove(tablero,m,J2)
 
@@ -362,7 +357,6 @@ while not fin:
     k+=1
 
 tiempoTotal = time.time() - tiempoTotal
-
 print ""
 if ganador == 1:
     print "gana jugador : ", J1['pieces'],"(",L[0],")"
@@ -370,8 +364,6 @@ elif ganador == 2:
     print "gana jugador : ", J2['pieces'],"(",L[1],")"
 else:
     print "empate"
-
-
 print "partida terminada en ", k, " turnos   tiempo total : ",tiempoTotal
 
 
